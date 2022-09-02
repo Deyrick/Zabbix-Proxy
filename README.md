@@ -1,7 +1,7 @@
 # Install Zabbix Proxy on CentOS/RHEL
 
 
-### Definir timezone:
+### Definir timezone
 
 ```shell
 
@@ -9,7 +9,7 @@ timedatectl set-timezone America/Sao_Paulo
 
 ```
 
-### Configure o chrony (NTP) para corrigir data e hora:
+### Configure o chrony (NTP) para corrigir data e hora
 
 
 ```shell
@@ -28,13 +28,15 @@ dnf install -y net-tools vim nano epel-release wget curl tcpdump
 
 ```
 
+### Instalar o pacote do mysql server
 
-### Google Chrome
+```shell
 
-If I ever need Google Chrome, then I enable the repo in the software manager and install it via the software shop.
+dnf -y install mysql-server
 
+```
 
-### The most used network programs in everyday life 
+### Habilitar e iniciar serviço do MySQL
 
 ```shell
 
