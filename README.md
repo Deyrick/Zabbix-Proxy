@@ -9,7 +9,7 @@ timedatectl set-timezone America/Sao_Paulo
 
 ```
 
-### Configure o chrony (NTP) para corrigir data e hora
+### Configure o chrony (NTP) para corrigir data e hora:
 
 
 ```shell
@@ -18,17 +18,15 @@ dnf -y install chrony
 
 systemctl enable --now chronyd
 
-
 ```
 
+### Instalar utilitários
 
-### Improve Font Rendering
-The default font rendering in Fedora may appear blurry on LCD monitors. Gnome's OS settings application lacks the ability to change font rendering. You must install the Gnome Tweak Tool to adjust these settings. Gnome Tweak Tool can be installed from the Fedora or from a terminal as shown below:
+```shell
 
-   1. Run `sudo dnf install gnome-tweak-tool`
-   2. Run `gnome-tweaks`
-   3. Fonts > Hinting > Set to "Full"
-   4. Fonts > Antialiasing > Set to "Subpixel (for LCD screens)"
+dnf install -y net-tools vim nano epel-release wget curl tcpdump
+
+```
 
 
 ### Google Chrome
