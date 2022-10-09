@@ -76,7 +76,7 @@ dnf clean all
 mysql -uroot -p
 
 ```
-Ps: se você não criou uma senha e só dar um enter
+Ps: se você não criou uma senha é só dar um enter
 
 ### dentro do Mysql
 
@@ -91,7 +91,7 @@ grant all privileges on zabbix_proxy.* to zabbix@localhost;
 quit; 
 
 ```
-Ps no campo 'password', coloque a senha que seu "coração manda "
+Ps: no campo 'password', coloque a senha que seu "coração manda "
 
 ###  Carregando as tabelas necessárias para funcionar
 
@@ -111,7 +111,7 @@ nano /etc/zabbix/zabbix_proxy.conf
 vim /etc/zabbix/zabbix_proxy.conf									
 	
 ```												
-Ps: Pessoal que usa o "vim", vocês usam todas  as funcionalidades mesmo ou e modinha?											
+Ps: Pessoal que usa o "vim", vocês usam todas  as funcionalidades mesmo ou é modinha?											
 ###  Dentro do arquivo altere o parâmetro abaixo com a sua senha
 
 ```shell
@@ -127,13 +127,13 @@ Ps: Pessoal que usa o "vim", vocês usam todas  as funcionalidades mesmo ou e mo
  systemctl enable zabbix-proxy
 ```
 
-Ps caso as coisas não funcionem como você esperava, obtenha alguma mensagem de erro quando iniciar, use o comando abaixo para analisar o problema:
+Ps: caso as coisas não funcionem como você esperava, obtenha alguma mensagem de erro quando iniciar, use o comando abaixo para analisar o problema:
 
 ```shell
  tail -f /var/log/zabbix/zabbix_proxy.log
 ```
 
-Obrigado por te chegado até aqui. 
+Obrigado por ter chegado até aqui. 
 
 
 <p align="center">
