@@ -19,6 +19,12 @@ dnf -y install chrony
 systemctl enable --now chronyd
 
 ```
+```shell
+
+systemctl enable --now chronyd
+
+```
+
 
 ### Instalar utilitários
 
