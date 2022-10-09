@@ -1,4 +1,4 @@
-# Install Zabbix Proxy on CentOS/RHEL
+# Instalando Zabbix Proxy on CentOS/RHEL
 
 
 ### Definir timezone
@@ -49,7 +49,7 @@ ssystemctl enable --now mysqld
 ```
 
 
-### Instalando o Repositorio da Zabbix
+### Instalando o Repositório da Zabbix
 
 ```
 rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/9/x86_64/zabbix-release-6.0-4.el9.noarch.rpm
@@ -60,98 +60,82 @@ dnf clean all
   
  ```
  
-  ### Optionally, enable the Nonfree repository:
+  ### Instalando o Proxy:
   
   
   ```
-  sudo dnf install \
-  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-   sudo dnf group update core
+  # dnf install zabbix-proxy-mysql zabbix-sql-scripts zabbix-selinux-policy 
    
 ```
 
-### Multimedia Codecs
+### Criar a database
 
-The basics that work
 
 ```shell
 
-sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
-
-sudo dnf install lame\* --exclude=lame-devel
-
-sudo dnf group upgrade --with-optional Multimedia
-
+mysql -uroot -p
 
 ```
+Ps: se você não criou uma senha e só dar um enter
 
-### For OpenH264 in Firefox I run:
+### dentro do Mysql
 
 
 ```shell 
+create database zabbix_proxy character set utf8mb4 collate utf8mb4_bin;
 
-sudo dnf -y config-manager --set-enabled fedora-cisco-openh264
+create user zabbix@localhost identified by 'password';
 
-sudo dnf -y install gstreamer1-plugin-openh264 mozilla-openh264
+grant all privileges on zabbix_proxy.* to zabbix@localhost;
 
+quit; 
 
 ```
-### Install Edge "Optional"
+Ps no campo 'password', coloque a senha que seu "coração manda "
+
+###  Carregando as tabelas necessárias para funcionar
 
 ```shell
 
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc -y
-
-sudo dnf -y config-manager --add-repo https://packages.microsoft.com/yumrepos/edge
-
-sudo mv /etc/yum.repos.d/packages.microsoft.com_yumrepos_edge.repo /etc/yum.repos.d/microsoft-edge-dev.repo 
-
-sudo dnf -y install microsoft-edge-dev
+scat /usr/share/zabbix-sql-scripts/mysql/proxy.sql | mysql --default-character-set=utf8mb4 -uzabbix -p zabbix_proxy
 
 ```
 
-
-### Delete Firefox "Optional"
+###  Usando seu editor de texto favorito edite o arquivo de configuração 
 
 ```shell
+vi /etc/zabbix/zabbix_proxy.conf
 
-sudo dnf -y remove firefox*
+nano /etc/zabbix/zabbix_proxy.conf
 
-sudo dnf clean all
+vim /etc/zabbix/zabbix_proxy.conf									
+	
+```												
+Ps: Pessoal que usa o "vim", vocês usam todas  as funcionalidades mesmo ou e modinha?											
 
+###  Dentro do arquivo altere o parâmetro abaixo com a sua senha: 
+```shell
+ DBPassword=password 
 ```
-Afterwards you need to open Firefox, go to menu → Add-ons → Plugins and enable OpenH264 plugin. You can do a simple test whether your H.264 works in RTC on this page (check Require H.264 video).
-
-### Optional: "Software that you will need sometime"
-
-1. Qbittorrent
-2. Neofectch
+###  Habilitando o  Serviço e configurando para iniciar apos o reboot do servidor:
+```shell
+ systemctl restart zabbix-proxy
+```
 
 ```shell
-
-sudo dnf -y install qbittorrent 
-
-sudo dnf -y install neofetch
-
+ systemctl enable zabbix-proxy
 ```
 
-### Firefox
+Ps caso as coisas não funcionem como você esperava, obtenha alguma mensagem de erro quando iniciar, use o comando abaixo para analisar o problema:
 
-### Optional: Force GPU rendering to smooth out page scrolling
+```shell
+ tail -f /var/log/zabbix/zabbix_proxy.log
+```
 
-Firefox in Gnome can experience screen tearing and other performance-inhibiting behavior. This may be adjustable by forcing GPU rendering, though it may impact power usage and stability. This has only been tested using NVIDIA GPUs.
-
-
-1. Navigate to`about:config` in the Firefox URL bar
-2. Select Accept the Risk and Continue
-3. Copy and paste`layers.acceleration.force-enabled` into the search box and Enable it
-4. Copy and paste`layers.force-active` into the search box and Enable it
-5. Restart Firefox and observe smoother scrolling behavior
-
-
+Obrigado por te chegado até aqui. 
 
 
 <p align="center">
 <img src="https://github.com/Deyrick/Fedora/blob/main/2021-09-12_16-57.png" >
 </p>
+
