@@ -112,12 +112,13 @@ vim /etc/zabbix/zabbix_proxy.conf
 	
 ```												
 Ps: Pessoal que usa o "vim", vocês usam todas  as funcionalidades mesmo ou e modinha?											
+###  Dentro do arquivo altere o parâmetro abaixo com a sua senha
 
-###  Dentro do arquivo altere o parâmetro abaixo com a sua senha: 
 ```shell
  DBPassword=password 
 ```
-###  Habilitando o  Serviço e configurando para iniciar apos o reboot do servidor:
+###  Habilitando o  Serviço e configurando para iniciar apos o reboot do servidor
+
 ```shell
  systemctl restart zabbix-proxy
 ```
