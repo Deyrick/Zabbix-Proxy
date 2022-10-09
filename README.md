@@ -40,20 +40,19 @@ dnf -y install mysql-server
 
 ```shell
 
-sudo dnf -y install nmap
-
-sudo dnf -y install netdiscover
-
-sudo dnf -y install fping
+ssystemctl enable --now mysqld
 
 ```
 
 
-### RPM Ropositories 
+### Instalando o Repositorio da Zabbix
 
 ```
-sudo dnf install \
-  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/9/x86_64/zabbix-release-6.0-4.el9.noarch.rpm
+  
+ ```
+ ```
+dnf clean all 
   
  ```
  
