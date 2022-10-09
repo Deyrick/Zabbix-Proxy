@@ -16,8 +16,6 @@ timedatectl set-timezone America/Sao_Paulo
 
 dnf -y install chrony
 
-systemctl enable --now chronyd
-
 ```
 ```shell
 
